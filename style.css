@@ -1,0 +1,1293 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+/* ============================================================
+   RESET & BASE STYLES
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --bg-color: #1f242d;
+    --second-bg-color: #323946;
+    --main-color: #7cf03d;
+    --white-color: #fff;
+    --disabled-color: #fff3;
+}
+
+/* ============================================================
+   ACCESSIBILITY: KEYBOARD FOCUS STYLES
+   - Restores visible focus indicators for keyboard users
+   - Uses :focus-visible to show ring only for keyboard/AT navigation
+   - Maintains mouse-click behavior unchanged
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+i[role="button"]:focus-visible {
+    outline: 0.2rem solid var(--main-color);
+    outline-offset: 0.3rem;
+    border-radius: 0.4rem;
+}
+
+/* Tighter focus ring for circular controls */
+.home-detail .btn-sci .sci a:focus-visible,
+.portfolio-box .navigation button:focus-visible {
+    outline-offset: 0.2rem;
+    border-radius: 50%;
+}
+
+/* ============================================================
+   UTILITY: VISUALLY HIDDEN
+   - Screen reader accessible but visually hidden
+   - Used for contact form labels
+   ============================================================ */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    color: var(--white-color);
+}
+
+/* ============================================================
+   HEADER
+   - Fixed navigation with entrance animation
+   ============================================================ */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    visibility: hidden;
+    opacity: 0;
+}
+
+header.active {
+    animation: show-header 1.5s linear forwards;
+    animation-delay: 1.2s;
+}
+
+@keyframes show-header {
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.logo {
+    font-size: 3rem;
+    color: var(--white-color);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+nav a {
+    font-size: 2rem;
+    color: var(--white-color);
+    font-weight: 500;
+    margin-left: 3.5rem;
+    transition: .5s;
+    text-decoration: none;
+}
+
+nav a:hover,
+nav a.active {
+    color: var(--main-color);
+}
+
+#menu-icon {
+    display: none;
+    font-size: 4rem;
+    cursor: pointer;
+}
+
+#menu-icon:hover {
+    color: var(--main-color);
+}
+
+/* ============================================================
+   BARS-BOX ANIMATION
+   - Entrance overlay that slides up
+   ============================================================ */
+.bars-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.bars-box .bar {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    animation: hid-bars 1s ease-in-out both;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes hid-bars {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+.bars-box.active .bar {
+    animation: show-bars 1s ease-in-out both;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes show-bars {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+/* ============================================================
+   SECTION LAYOUT
+   - All sections initially hidden with entrance animation
+   ============================================================ */
+section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    padding: 10rem 9% 2rem;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+}
+
+section.active {
+    animation: show-content 1.5s linear forwards;
+    animation-delay: 1.6s;
+}
+
+@keyframes show-content {
+    100% {
+        visibility: visible;
+        opacity: 1;
+        overflow: auto;
+    }
+}
+
+/* ============================================================
+   HOME SECTION
+   - Profile image with animated border
+   - Rotating text animation for roles
+   - Social media icons
+   ============================================================ */
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.home-detail h1 {
+    font-size: clamp(3.5rem, 10vw, 5.5rem);
+}
+
+.home-detail h2 {
+    display: inline-block;
+    font-size: 3.2rem;
+    margin: -1rem;
+}
+
+.home-detail h2 span {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    -webkit-text-stroke: 0.07rem var(--main-color);
+    animation: display-text 16s linear infinite;
+    animation-delay: calc(-4s * var(--i));
+}
+
+@keyframes display-text {
+    25%, 100% {
+        display: none;
+    }
+}
+
+.home-detail h2 span::before {
+    content: attr(data-text);
+    position: absolute;
+    width: 0;
+    border-right: 0.2rem solid var(--main-color);
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--main-color);
+    animation: fill-text 4s linear infinite;
+    animation-delay: calc(1s * var(--i));
+}
+
+@keyframes fill-text {
+    10%, 100% { width: 0; }
+    70%, 90% { width: 100%; }
+    100% { width: 0; }
+}
+
+.home-detail p {
+    font-size: 1.6rem;
+    margin: 1rem 0 2.5rem;
+}
+
+.home-detail .btn-sci {
+    display: flex;
+    align-items: center;
+}
+
+/* Download Button */
+.btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: var(--main-color);
+    border: 0.2rem solid var(--main-color);
+    border-radius: 4rem;
+    box-shadow: 0 0 1rem var(--main-color);
+    font-size: 1.6rem;
+    color: var(--bg-color);
+    font-weight: 500;
+    transition: .5s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background: transparent;
+    color: var(--main-color);
+    box-shadow: none;
+}
+
+/* Social Icons */
+.home-detail .btn-sci .sci {
+    margin-left: 2rem;
+}
+
+.home-detail .btn-sci .sci a {
+    display: inline-flex;
+    padding: 0.8rem;
+    border: 0.2rem solid var(--main-color);
+    border-radius: 50%;
+    font-size: 2rem;
+    color: var(--main-color);
+    margin: 0.8rem;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.home-detail .btn-sci .sci a:hover {
+    background: var(--main-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+/* Home Image Box */
+.home-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-img .img-box {
+    position: relative;
+    width: 32vw;
+    height: 32vw;
+    padding: .5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.home-img .img-box::before,
+.home-img .img-box::after {
+    content: '';
+    position: absolute;
+    width: 50rem;
+    height: 50rem;
+    background: conic-gradient(transparent, transparent, transparent, var(--main-color));
+    animation: rotate-border 10s linear infinite;
+    will-change: transform;
+}
+
+.home-img .img-box::after {
+    animation-delay: -4s;
+}
+
+@keyframes rotate-border {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.home-img .img-box .img-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    border-radius: 50%;
+    border: 0.1rem solid var(--main-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.home-img .img-box .img-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    mix-blend-mode: lighten;
+    filter: contrast(1.1);
+}
+
+/* ============================================================
+   SERVICE SECTION
+   - Grid layout with card-style services
+   - Hover effects with border color and scale
+   ============================================================ */
+.heading {
+    font-size: 4.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.heading span {
+    color: var(--main-color);
+}
+
+.service-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+}
+
+.service-container .services-box {
+    padding: 3rem 2.5rem;
+    background: var(--second-bg-color);
+    border: 0.2rem solid var(--second-bg-color);
+    border-radius: 1rem;
+    transition: 0.5s;
+}
+
+.service-container .services-box:hover {
+    border-color: var(--main-color);
+    transform: scale(1.02);
+}
+
+.services-box .icon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.services-box .icon i {
+    font-size: 4.5rem;
+    transition: 0.5s;
+}
+
+.services-box .icon a {
+    display: inline-flex;
+    background: var(--white-color);
+    border-radius: 50%;
+    padding: 1rem;
+    transition: 0.5s;
+}
+
+.services-box:hover .icon a {
+    background: var(--main-color);
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+.services-box .icon a i {
+    font-size: 3rem;
+    color: var(--bg-color);
+    transform: rotate(225deg);
+    transition: 0.5s;
+}
+
+.services-box .icon a:hover i {
+    transform: rotate(180deg);
+}
+
+.services-box h3 {
+    font-size: 3rem;
+    margin: 0.5rem 0 2rem;
+    transition: 0.5s;
+}
+
+.services-box:hover h3 {
+    color: var(--main-color);
+}
+
+.services-box p {
+    font-size: 1.6rem;
+}
+
+/* ============================================================
+   CERTIFICATES SECTION
+   - Matches services section styling
+   - Card layout with thumbnails and button
+   ============================================================ */
+.certificate-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+}
+
+.certificate-container .certificate-box {
+    background: var(--second-bg-color);
+    border: 0.2rem solid var(--second-bg-color);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.certificate-container .certificate-box:hover {
+    border-color: var(--main-color);
+    transform: translateY(-0.8rem) scale(1.02);
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35);
+}
+
+.certificate-box .cert-img-box {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--bg-color);
+}
+
+.certificate-box .cert-img-box img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.5s;
+}
+
+.certificate-container .certificate-box:hover .cert-img-box img {
+    transform: scale(1.08);
+}
+
+.certificate-box .cert-content {
+    padding: 2rem 2.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.certificate-box .cert-content h3 {
+    font-size: 2.4rem;
+    margin: 0 0 0.8rem;
+    transition: 0.5s;
+}
+
+.certificate-container .certificate-box:hover .cert-content h3 {
+    color: var(--main-color);
+}
+
+.certificate-box .cert-org,
+.certificate-box .cert-date {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+}
+
+.certificate-box .cert-org i,
+.certificate-box .cert-date i {
+    font-size: 1.6rem;
+    color: var(--main-color);
+}
+
+.certificate-box .cert-desc {
+    font-size: 1.6rem;
+    margin: 1rem 0 2rem;
+    opacity: 0.85;
+}
+
+.certificate-box .cert-btn {
+    margin-top: auto;
+    align-self: flex-start;
+    padding: 0.8rem 2rem;
+    font-size: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.certificate-box .cert-btn i {
+    font-size: 1.8rem;
+    transition: 0.3s;
+}
+
+.certificate-box .cert-btn:hover i {
+    transform: translateX(0.3rem);
+}
+
+/* ============================================================
+   CERTIFICATE VIEWER MODAL (LIGHTBOX)
+   - Full-screen overlay that shows one certificate image at a time
+   - Hidden by default; script.js toggles the .active class
+   ============================================================ */
+.cert-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999; /* above the header (z-index: 100) and everything else */
+    background: rgba(15, 17, 21, 0.92); /* dims the page behind */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem 2rem;
+    overflow-y: auto; /* lets a certificate image taller than the viewport scroll */
+}
+
+.cert-modal.active {
+    display: flex;
+}
+
+/* Locks background scrolling while the modal is open, so the page
+   behind genuinely can't be scrolled/interacted with (added/removed by
+   script.js alongside the .active class above). */
+body.cert-modal-open {
+    overflow: hidden;
+}
+
+.cert-modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    /* margin:auto (rather than relying only on flex centering) keeps the
+       image centered even once .cert-modal starts scrolling — a plain
+       flex-centered child gets its top clipped first when its container
+       scrolls, which margin:auto avoids. */
+    margin: auto;
+}
+
+.cert-modal-content img {
+    display: block;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* scales to fit while preserving aspect ratio, no distortion/cropping */
+    border-radius: 1rem;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.5);
+}
+
+.cert-modal-close {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--second-bg-color);
+    border: 0.2rem solid var(--main-color);
+    border-radius: 50%;
+    color: var(--white-color);
+    font-size: 2.4rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10000; /* above .cert-modal itself */
+}
+
+.cert-modal-close:hover,
+.cert-modal-close:focus-visible {
+    background: var(--main-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+@media (max-width: 450px) {
+    .cert-modal {
+        padding: 5.5rem 1rem 1.5rem;
+    }
+
+    .cert-modal-close {
+        top: 1rem;
+        right: 1rem;
+        width: 4rem;
+        height: 4rem;
+        font-size: 2rem;
+    }
+}
+
+/* ============================================================
+   RESUME SECTION
+   - Two-column layout: tabs on left, content on right
+   - Tabbed interface for Experience, Education, Skills, About
+   ============================================================ */
+.resume-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5rem;
+    align-items: start;
+}
+
+.resume-box h2 {
+    font-size: 4.5rem;
+    line-height: 1.2;
+}
+
+.resume-box p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+}
+
+.resume-box .desc {
+    margin: 2rem 0 2.5rem;
+}
+
+/* Resume Tab Buttons */
+.resume-box .resume-btn {
+    width: 100%;
+    height: 5.3rem;
+    background: var(--second-bg-color);
+    border: 0.2rem solid var(--second-bg-color);
+    font-size: 1.6rem;
+    color: var(--white-color);
+    font-weight: 500;
+    margin-bottom: 2rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.resume-box .resume-btn:hover {
+    background: var(--main-color);
+    border-color: var(--main-color);
+    color: var(--white-color);
+}
+
+.resume-box .resume-btn.active {
+    border-color: var(--main-color);
+    color: var(--main-color);
+    background: transparent;
+}
+
+/* Resume Detail Panels */
+.resume-detail {
+    display: none;
+}
+
+.resume-detail.active {
+    display: block;
+}
+
+.resume-box .heading {
+    font-size: 3.5rem;
+    text-align: left;
+}
+
+/* Resume List Grid */
+.resume-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+    max-height: 45rem;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar Styling */
+.resume-list::-webkit-scrollbar {
+    width: 0.7rem;
+}
+
+.resume-list::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 1rem;
+    transition: background 0.3s ease;
+}
+
+.resume-list:hover::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+}
+
+/* Resume Items */
+.resume-list .resume-item {
+    background: var(--second-bg-color);
+    border-radius: 0.8rem;
+    padding: 3rem 2.5rem;
+    min-height: calc((45rem - 2rem) / 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-list .resume-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.resume-item .year {
+    color: var(--main-color);
+    font-weight: 600;
+}
+
+.resume-item h3 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.resume-item .company {
+    position: relative;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
+
+.resume-item .company::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -2rem;
+    transform: translateY(-50%);
+    width: 0.8rem;
+    height: 0.8rem;
+    background: var(--main-color);
+    border-radius: 50%;
+}
+
+/* Skills Grid */
+.resume-detail.skills .resume-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    height: auto;
+    overflow: visible;
+    gap: 2rem;
+}
+
+.resume-detail.skills .resume-item {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    cursor: default;
+}
+
+.resume-detail.skills .resume-item i {
+    font-size: 8.5rem;
+    transition: color 0.5s ease, transform 0.3s ease;
+}
+
+.resume-detail.skills .resume-item:hover i {
+    color: var(--main-color);
+    transform: scale(1.05);
+}
+
+.resume-detail.skills .resume-item span {
+    position: absolute;
+    top: 15%;
+    background: var(--white-color);
+    color: var(--bg-color);
+    font-size: 1.6rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    pointer-events: none;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.resume-detail.skills .resume-item:hover span {
+    opacity: 1;
+    transform: translateY(-15px) scale(1);
+}
+
+/* About Me Grid */
+.resume-detail.about .resume-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 1.5rem;
+    height: auto;
+}
+
+.resume-detail.about .resume-item {
+    height: auto;
+    padding-bottom: 0.5rem;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.692);
+    box-shadow: 0 2px 10px var(--second-bg-color);
+}
+
+.resume-detail.about .resume-item p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--main-color);
+    font-size: 1.6rem;
+    line-height: 1.6;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.resume-detail.about .resume-item p span {
+    color: var(--white-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.resume-detail.about .resume-item:hover p {
+    color: var(--main-color);
+}
+
+.resume-detail.about .resume-item:hover p span {
+    color: var(--white-color);
+}
+
+/* ============================================================
+   PORTFOLIO SECTION
+   - Two-column layout: details on left, carousel on right
+   - Carousel with navigation buttons
+   - Hover tooltips on project links
+   ============================================================ */
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+}
+
+.portfolio-detail {
+    display: none;
+}
+
+.portfolio-detail.active {
+    display: block;
+}
+
+.portfolio-box .numb {
+    font-size: 8rem;
+    -webkit-text-stroke: .07rem var(--white-color);
+    color: transparent;
+    line-height: 1;
+}
+
+.portfolio-box h3 {
+    font-size: 3.5rem;
+    margin: .8rem 0 2rem;
+}
+
+.portfolio-box p {
+    font-size: 1.6rem;
+}
+
+.portfolio-box .tech {
+    margin: 2rem 0;
+    color: var(--main-color);
+    border-bottom: .1rem solid var(--white-color);
+    padding-bottom: 2rem;
+}
+
+.portfolio-box .live-github a {
+    position: relative;
+    display: inline-flex;
+    padding: 1.3rem;
+    font-size: 3rem;
+    color: var(--white-color);
+    border-radius: 50%;
+    background: var(--second-bg-color);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.portfolio-box .live-github a:hover {
+    color: var(--main-color);
+}
+
+.portfolio-box .live-github a:first-child {
+    margin-right: 1.5rem;
+}
+
+.portfolio-box .live-github a:first-child i {
+    transform: rotate(135deg);
+}
+
+.portfolio-box .live-github a span {
+    position: absolute;
+    top: -60%;
+    left: 50%;
+    transform: translateX(-50%) scale(.9);
+    font-size: 1.6rem;
+    white-space: nowrap;
+    padding: .5rem 1rem;
+    border-radius: .6rem;
+    pointer-events: none;
+    background: var(--white-color);
+    color: var(--bg-color);
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.portfolio-box .live-github a:hover span {
+    top: -70%;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* Portfolio Carousel */
+.portfolio-box .portfolio-carousel {
+    width: 100%;
+    height: 45rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.portfolio-carousel .img-slide {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    gap: 2rem;
+    height: inherit;
+    transition: .5s;
+}
+
+.portfolio-carousel .img-item {
+    height: inherit;
+}
+
+.portfolio-carousel .img-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1rem;
+}
+
+/* Carousel Navigation */
+.portfolio-box .navigation {
+    text-align: right;
+    margin-top: 2rem;
+}
+
+.portfolio-box .navigation button {
+    display: inline-flex;
+    padding: .4rem;
+    background: var(--second-bg-color);
+    border: .2rem solid var(--main-color);
+    border-radius: .6rem;
+    font-size: 4rem;
+    color: var(--main-color);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.portfolio-box .navigation button:hover {
+    background: var(--main-color);
+    color: var(--bg-color);
+}
+
+.portfolio-box .navigation .arrow-right {
+    margin-left: 1.5rem;
+}
+
+.portfolio-box .navigation button.disabled {
+    border-color: var(--second-bg-color);
+    color: var(--disabled-color);
+    cursor: not-allowed;
+}
+
+.portfolio-box .navigation button.disabled:hover {
+    background: var(--second-bg-color);
+    color: var(--disabled-color);
+}
+
+/* ============================================================
+   CONTACT SECTION
+   - Two-column layout: info on left, form on right
+   - Form with validation, loading states, and status messages
+   ============================================================ */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 3rem;
+}
+
+.contact-container .contact-box:first-child {
+    align-items: center;
+}
+
+.contact-box h2 {
+    font-size: 4.5rem;
+}
+
+.contact-box p {
+    font-size: 1.6rem;
+}
+
+.contact-box .desc {
+    margin: 1.5rem 0 2.5rem;
+}
+
+.contact-box .contact-detail {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.contact-detail i {
+    display: inline-flex;
+    background: var(--second-bg-color);
+    color: var(--main-color);
+    font-size: 3rem;
+    padding: 1.2rem;
+    border-radius: .6rem;
+    margin-right: 1.5rem;
+}
+
+.contact-detail .detail p:first-child {
+    color: var(--main-color);
+}
+
+/* Contact Form */
+.contact-box form {
+    background: var(--second-bg-color);
+    padding: 2.5rem 3.5rem 3.5rem;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+.contact-box .heading {
+    font-size: 3.5rem;
+}
+
+.contact-box .field-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.contact-box .field-box input,
+.contact-box .field-box textarea {
+    padding: 1.5rem;
+    background: var(--bg-color);
+    border: .15rem solid var(--bg-color);
+    border-radius: .6rem;
+    font-size: 1.6rem;
+    color: var(--white-color);
+    transition: 0.3s;
+}
+
+.contact-box .field-box textarea {
+    grid-column: 1 / -1;
+    height: 26rem;
+    resize: none;
+}
+
+.contact-box .field-box input:focus,
+.contact-box .field-box textarea:focus {
+    border-color: var(--main-color);
+}
+
+.contact-box .btn {
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+/* Form Submit States */
+.contact-box .btn.is-loading {
+    opacity: 0.7;
+    cursor: progress;
+    pointer-events: none;
+}
+
+.contact-box .btn.is-loading::after {
+    content: '';
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 1rem;
+    vertical-align: middle;
+    border: 0.2rem solid var(--bg-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: btn-spin 0.7s linear infinite;
+}
+
+@keyframes btn-spin {
+    to { transform: rotate(360deg); }
+}
+
+.form-status {
+    margin-top: 1.2rem;
+    font-size: 1.5rem;
+    min-height: 0;
+}
+
+.form-status.success {
+    color: var(--main-color);
+}
+
+.form-status.error {
+    color: #ff6b6b;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   - Mobile-first breakpoints
+   - Tablet and desktop adjustments
+   ============================================================ */
+@media (max-width: 1200px) {
+    html { font-size: 55%; }
+}
+
+@media (max-width: 992px) {
+    body { padding: 2rem 4%; }
+    section { padding: 10rem 4% 2rem; }
+}
+
+@media (max-width: 810px) {
+    .contact-box .field-box {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    #menu-icon {
+        display: block;
+    }
+
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem 0;
+        background: var(--bg-color);
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+        text-align: center;
+        display: none;
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav a {
+        display: block;
+        margin: 4rem 0;
+    }
+
+    .home {
+        flex-direction: column-reverse;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .home-img .img-box {
+        width: 35rem;
+        height: 35rem;
+    }
+
+    .resume-container,
+    .portfolio-container,
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-container {
+        gap: 3rem;
+    }
+
+    .portfolio-container .portfolio-box:first-child {
+        order: 1;
+    }
+
+    .contact-box .field-box {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .home-img .img-box {
+        width: 30rem;
+        height: 30rem;
+    }
+
+    .contact-container .field-box {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 450px) {
+    html { font-size: 50%; }
+}
+
+@media (max-width: 400px) {
+    .home-detail,
+    .resume-box h2,
+    .resume-box .heading,
+    .resume-box .desc,
+    .resume-detail.about .resume-item {
+        text-align: center;
+    }
+
+    .home-detail .btn-sci {
+        flex-direction: column-reverse;
+    }
+
+    .home-detail .btn-sci .sci {
+        margin-left: 0;
+        margin-bottom: 2rem;
+    }
+
+    .contact-box form {
+        padding: 2.5rem 3rem 3.5rem;
+    }
+
+    .contact-box h2 {
+        font-size: 3.5rem;
+    }
+}
