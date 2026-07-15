@@ -11,8 +11,6 @@ const navbar = document.querySelector('header nav');
 
 /* ==========================================================================
    MOBILE MENU
-   - Toggle open/close with click, keyboard, and outside-click handlers
-   - Accessibility: aria-expanded sync, Escape key support
    ========================================================================== */
 
 /**
@@ -71,15 +69,8 @@ document.addEventListener('keydown', (e) => {
 
 /* ==========================================================================
    SECTION TRANSITIONS
-   - Reusable function for page transition animation
    ========================================================================== */
 
-/**
- * Reset page state for transition animation
- * - Removes and re-adds active classes for header and bars-box
- * - Clears active states from all nav links and sections
- * - Closes mobile menu
- */
 const activePage = () => {
     header.classList.remove('active');
     setTimeout(() => {
@@ -105,9 +96,6 @@ const activePage = () => {
 
 /* ==========================================================================
    URL HASH ROUTING
-   - Supports browser Back/Forward, deep linking, and refresh
-   - Uses history.pushState for clean URL management
-   - Falls back to Home on invalid hash
    ========================================================================== */
 
 const DEFAULT_HASH = 'home';
@@ -237,20 +225,11 @@ resumeBtns.forEach((btn, idx) => {
 
 /* ==========================================================================
    PORTFOLIO CAROUSEL
-   - Image slider with navigation arrows
-   - Syncs with project detail panels
-   - Accessibility: aria-disabled on arrows
    ========================================================================== */
 const arrowRight = document.querySelector('.portfolio-box .navigation .arrow-right');
 const arrowLeft = document.querySelector('.portfolio-box .navigation .arrow-left');
 let index = 0;
 
-/**
- * Update carousel position and active project detail
- * - Moves the image slide
- * - Shows corresponding project description
- * - Toggles arrow disabled states
- */
 const activePortfolio = () => {
     const imgSlide = document.querySelector('.portfolio-carousel .img-slide');
     const portfolioDetails = document.querySelectorAll('.portfolio-detail');
@@ -294,10 +273,6 @@ activePortfolio();
 
 /* ==========================================================================
    CONTACT FORM
-   - Validation with HTML5 + extra manual checks
-   - Async submission to backend (Formspree, EmailJS, or Demo)
-   - Loading states with visual feedback
-   - Accessibility: aria-live status updates
    ========================================================================== */
 const contactForm = document.getElementById('contact-form');
 
@@ -313,12 +288,11 @@ if (contactForm) {
      * 'formspree' - Formspree.io (set endpoint below)
      * 'emailjs' - EmailJS (set serviceId & templateId below)
      */
-    const BACKEND = 'demo';
+    const BACKEND = 'formspree';
 
     const CONFIG = {
         formspree: {
-            // TODO: Replace with your Formspree endpoint
-            endpoint: 'https://formspree.io/f/YOUR_FORM_ID',
+            endpoint: 'https://formspree.io/f/xaqrqykn',
         },
         emailjs: {
             // TODO: Replace with your EmailJS credentials
@@ -436,25 +410,12 @@ if (contactForm) {
 
 /* ==========================================================================
    CERTIFICATE VIEWER MODAL (LIGHTBOX)
-   - Fixes the "View Certificate" links: previously href="#" with no click
-     handler at all, so they either did nothing or briefly/incorrectly
-     tried to open a blank new tab (target="_blank") instead of showing
-     the certificate. Now each click is intercepted and opens that
-     specific card's image in a full-screen modal.
-   - Closes via the × button, the Escape key, or clicking the dimmed
-     backdrop outside the image — never by clicking the image itself.
-   - Locks page scroll and traps Tab focus while open, so the page
-     behind the modal is fully non-interactive until it's closed.
    ========================================================================== */
 const certModal = document.getElementById('cert-modal');
 
 if (certModal) {
     const certModalImg = document.getElementById('cert-modal-img');
     const certModalClose = document.getElementById('cert-modal-close');
-    // .cert-btn is the correct, existing class on every "View Certificate"
-    // link (see .certificate-box .cert-content a.cert-btn in index.html) —
-    // this is the selector fix: nothing previously queried these buttons
-    // at all, so no click handler existed for them.
     const certButtons = document.querySelectorAll('.cert-btn');
 
     // Remembers which button opened the modal, so focus can return to it
@@ -504,21 +465,12 @@ if (certModal) {
     });
 
     certModalClose.addEventListener('click', closeCertModal);
-
-    // Click outside the image (anywhere on the dimmed backdrop) closes
-    // the modal. .cert-modal-content has no padding of its own and hugs
-    // the image's rendered size exactly, so a click only reaches the
-    // backdrop (e.target === certModal) when it's genuinely outside the
-    // image — clicking the image itself never bubbles up as the modal.
     certModal.addEventListener('click', (e) => {
         if (e.target === certModal) {
             closeCertModal();
         }
     });
 
-    // Escape closes the modal; Tab is trapped on the close button, since
-    // it's the only focusable element inside the modal — this keeps
-    // keyboard focus from reaching the page behind while it's open.
     document.addEventListener('keydown', (e) => {
         if (!certModal.classList.contains('active')) return;
 

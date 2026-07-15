@@ -22,9 +22,6 @@
 
 /* ============================================================
    ACCESSIBILITY: KEYBOARD FOCUS STYLES
-   - Restores visible focus indicators for keyboard users
-   - Uses :focus-visible to show ring only for keyboard/AT navigation
-   - Maintains mouse-click behavior unchanged
    ============================================================ */
 a:focus-visible,
 button:focus-visible,
@@ -46,8 +43,6 @@ i[role="button"]:focus-visible {
 
 /* ============================================================
    UTILITY: VISUALLY HIDDEN
-   - Screen reader accessible but visually hidden
-   - Used for contact form labels
    ============================================================ */
 .sr-only {
     position: absolute;
@@ -375,8 +370,6 @@ section.active {
 
 /* ============================================================
    SERVICE SECTION
-   - Grid layout with card-style services
-   - Hover effects with border color and scale
    ============================================================ */
 .heading {
     font-size: 4.5rem;
@@ -461,12 +454,6 @@ section.active {
    - Matches services section styling
    - Card layout with thumbnails and button
    ============================================================ */
-.certificate-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-    gap: 2rem;
-}
-
 .certificate-container .certificate-box {
     background: var(--second-bg-color);
     border: 0.2rem solid var(--second-bg-color);
@@ -563,8 +550,6 @@ section.active {
 
 /* ============================================================
    CERTIFICATE VIEWER MODAL (LIGHTBOX)
-   - Full-screen overlay that shows one certificate image at a time
-   - Hidden by default; script.js toggles the .active class
    ============================================================ */
 .cert-modal {
     display: none;
@@ -584,9 +569,6 @@ section.active {
     display: flex;
 }
 
-/* Locks background scrolling while the modal is open, so the page
-   behind genuinely can't be scrolled/interacted with (added/removed by
-   script.js alongside the .active class above). */
 body.cert-modal-open {
     overflow: hidden;
 }
@@ -595,10 +577,6 @@ body.cert-modal-open {
     position: relative;
     max-width: 90vw;
     max-height: 90vh;
-    /* margin:auto (rather than relying only on flex centering) keeps the
-       image centered even once .cert-modal starts scrolling — a plain
-       flex-centered child gets its top clipped first when its container
-       scrolls, which margin:auto avoids. */
     margin: auto;
 }
 
@@ -656,8 +634,6 @@ body.cert-modal-open {
 
 /* ============================================================
    RESUME SECTION
-   - Two-column layout: tabs on left, content on right
-   - Tabbed interface for Experience, Education, Skills, About
    ============================================================ */
 .resume-container {
     display: grid;
@@ -796,8 +772,6 @@ body.cert-modal-open {
 .resume-detail.skills .resume-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    height: auto;
-    overflow: visible;
     gap: 2rem;
 }
 
@@ -974,13 +948,19 @@ body.cert-modal-open {
     transform: translateX(-50%) scale(1);
 }
 
-/* Portfolio Carousel */
+/* Portfolio Carousel
+   - Reusable, aspect-ratio driven image container so every project image
+     (regardless of its native dimensions) scales consistently, stays fully
+     visible, and never gets cropped or stretched at any screen size. */
 .portfolio-box .portfolio-carousel {
+    --carousel-ratio: 16 / 10;
     width: 100%;
-    height: 45rem;
+    aspect-ratio: var(--carousel-ratio);
+    max-height: 45rem;
     border-radius: 1rem;
     overflow: hidden;
     position: relative;
+    background: var(--second-bg-color);
 }
 
 .portfolio-carousel .img-slide {
@@ -988,19 +968,24 @@ body.cert-modal-open {
     grid-auto-flow: column;
     grid-auto-columns: 100%;
     gap: 2rem;
-    height: inherit;
+    height: 100%;
     transition: .5s;
 }
 
 .portfolio-carousel .img-item {
-    height: inherit;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .portfolio-carousel .img-item img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     object-position: center;
     border-radius: 1rem;
 }
@@ -1245,6 +1230,14 @@ body.cert-modal-open {
         order: 1;
     }
 
+    /* Single-column layout: give the carousel a slightly taller ratio
+       so screenshots have more room without the box becoming a tall
+       column, and keep it flexible instead of a fixed pixel height. */
+    .portfolio-box .portfolio-carousel {
+        --carousel-ratio: 4 / 3;
+        max-height: 40rem;
+    }
+
     .contact-box .field-box {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1259,10 +1252,26 @@ body.cert-modal-open {
     .contact-container .field-box {
         grid-template-columns: 1fr;
     }
+
+    .portfolio-box .portfolio-carousel {
+        --carousel-ratio: 1 / 1;
+        max-height: 34rem;
+    }
+
+    .portfolio-box .navigation {
+        margin-top: 1.5rem;
+    }
 }
 
 @media (max-width: 450px) {
     html { font-size: 50%; }
+}
+
+@media (max-width: 380px) {
+    .portfolio-box .portfolio-carousel {
+        --carousel-ratio: 4 / 5;
+        max-height: 30rem;
+    }
 }
 
 @media (max-width: 400px) {

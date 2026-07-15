@@ -268,45 +268,7 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
             software engineering, and system analysis and design.
           </p>
         </div>
-            <!-- <div class="resume-item">
-              <p class="year">2024</p>
-              <h3>Advanced JavaScript</h3>
-              <p class="company">Online Course - Coursera</p>
-              <p>Mastered modern JavaScript (ES6+), asynchronous programming, closures, and 
-                functional programming patterns. Built complex applications using advanced 
-                JavaScript concepts and design patterns.</p>
-            </div> -->
-            <!-- <div class="resume-item">
-              <p class="year">2022-2023</p>
-              <h3>Web Development Bootcamp</h3>
-              <p class="company">Online Course - Udemy</p>
-              <p>Intensive full-stack program covering HTML5, CSS3, JavaScript, React, Node.js, 
-                Express, and MongoDB. Completed 10+ full-stack projects and built a professional 
-                portfolio.</p>
-            </div> -->
-            <!-- <div class="resume-item">
-              <p class="year">2023</p>
-              <h3>Certified Web Developer</h3>
-              <p class="company">Online Course - freeCodeCamp</p>
-              <p>Completed 300+ hours of coding challenges and projects, earning certifications 
-                in Responsive Web Design, JavaScript Algorithms, and Front End Development Libraries.</p>
-            </div> -->
-            <!-- <div class="resume-item">
-              <p class="year">2023-2024</p>
-              <h3>Fundamentals of AI</h3>
-              <p class="company">Online Course - DeepLearning.AI</p>
-              <p>Explored machine learning concepts, neural networks, and AI applications. 
-                Implemented basic ML models and gained understanding of how AI can be integrated 
-                into web applications.</p>
-            </div> -->
-            <!-- <div class="resume-item">
-              <p class="year">2024</p>
-              <h3>Data Analysis Fundamentals</h3>
-              <p class="company">Online Course - IBM</p>
-              <p>Learned data cleaning, analysis, and visualization using Python, Pandas, and 
-                Matplotlib. Applied statistical methods to real-world datasets and generated 
-                actionable insights.</p>
-            </div> -->
+    
           </div>
         </div>
 
@@ -385,20 +347,6 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
   </div>
 </div>
 
-        <!-- Certificates Panel
-             Restructured to match the About Me panel's pattern exactly:
-             .resume-detail > h2.heading > p.desc > existing content.
-             Moved here from a standalone "#certificates" section/nav item.
-             All certificate cards, images, links, hover effects, and CSS
-             (.certificate-container / .certificate-box and friends in
-             style.css) are unchanged and fully reusable here as-is — none
-             of those selectors were ever scoped to the old <section>, so
-             nothing needed to change for the styling/animations to keep
-             working in this new location. The only new content is the
-             p.desc intro line below, added purely to match the About Me
-             layout pattern (heading + short description + content).
-             TODO: certificate verification links below still use "#"
-             placeholders — add the actual URLs when available. -->
 <div class="resume-detail certificates">
     <h2 class="heading">My <span>Certificates</span></h2>
 
@@ -408,7 +356,7 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
       programming, and emerging technologies.
     </p>
 
-    <div class="certificate-container">
+    <div class="resume-list certificate-container">
 
       <!-- Certificate 1 -->
       <div class="certificate-box">
@@ -842,52 +790,7 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
       </div>
 
         <!-- Project 5 -->
-        <div class="portfolio-detail">
-          <p class="numb">05</p>
-          <h3>E-Commerce Website</h3>
-          <p>Interactive weather application with real-time data, 7-day forecast, interactive 
-            maps, severe weather alerts, and location-based services. Beautiful visualizations 
-            and intuitive user interface.</p>
-          <div class="tech">
-            <p>JavaScript, APIs, CSS Grid, Chart.js</p>
-          </div>
-          <div class="live-github">
-            <!-- TODO: Add actual live project URL -->
-            <a href="#" aria-label="View Live Project">
-              <i class='bx bx-right-arrow-alt' aria-hidden="true"></i>
-              <span>Live Project</span>
-            </a>
-            <!-- TODO: Add actual GitHub repository URL -->
-            <a href="#" aria-label="View GitHub Repository">
-              <i class='bx bxl-github' aria-hidden="true"></i>
-              <span>GitHub Repository</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 6 -->
-        <div class="portfolio-detail">
-          <p class="numb">06</p>
-          <h3>Portfolio CMS</h3>
-          <p>Custom content management system for creative professionals with dynamic gallery, 
-            project showcase, client testimonials, and blog integration. Built for easy content 
-            updates and optimal performance.</p>
-          <div class="tech">
-            <p>React, Firebase, Tailwind CSS</p>
-          </div>
-          <div class="live-github">
-            <!-- TODO: Add actual live project URL -->
-            <a href="#" aria-label="View Live Project">
-              <i class='bx bx-right-arrow-alt' aria-hidden="true"></i>
-              <span>Live Project</span>
-            </a>
-            <!-- TODO: Add actual GitHub repository URL -->
-            <a href="#" aria-label="View GitHub Repository">
-              <i class='bx bxl-github' aria-hidden="true"></i>
-              <span>GitHub Repository</span>
-            </a>
-          </div>
-        </div>
+        
       </div>
 
       <!-- Right Column: Image Carousel -->
@@ -907,12 +810,7 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
             <div class="img-item">
               <img src="images/Bank Management System.png" alt="Bank Management System Screenshot" loading="lazy">
             </div>
-            <div class="img-item">
-              <img src="images/weather-app.jpg" alt="E-Commerce Website Screenshot" loading="lazy">
-            </div>
-            <div class="img-item">
-              <img src="images/portfolio-cms.jpg" alt="Portfolio CMS Screenshot" loading="lazy">
-            </div>
+            
           </div>
         </div>
         
@@ -970,8 +868,12 @@ Developed a Bus Management System using HTML, CSS, JavaScript, PHP, and MySQL, i
 
       <!-- Right Column: Contact Form -->
       <div class="contact-box">
-        <form action="" id="contact-form" novalidate>
+        <form action="https://formspree.io/f/xaqrqykn" method="POST" id="contact-form" novalidate>
           <h2 class="heading">Contact <span>Me!</span></h2>
+          <!-- Hidden field: sets the subject line of the email Formspree
+               delivers to the inbox. Separate from the visible "Email
+               Subject" field below, which is the visitor's own message subject. -->
+          <input type="hidden" name="_subject" value="New Portfolio Contact Message">
           
           <div class="field-box">
             <label for="contact-name" class="sr-only">Full Name</label>
