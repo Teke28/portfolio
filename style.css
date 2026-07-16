@@ -58,15 +58,23 @@ i[role="button"]:focus-visible {
 
 html {
     font-size: 62.5%;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body {
     color: var(--white-color);
+    overflow-x: hidden;
+    width: 100%;
+    overflow-wrap: break-word;
+}
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* ============================================================
    HEADER
-   - Fixed navigation with entrance animation
    ============================================================ */
 header {
     position: fixed;
@@ -451,8 +459,6 @@ section.active {
 
 /* ============================================================
    CERTIFICATES SECTION
-   - Matches services section styling
-   - Card layout with thumbnails and button
    ============================================================ */
 .certificate-container .certificate-box {
     background: var(--second-bg-color);
@@ -555,14 +561,14 @@ section.active {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 9999; /* above the header (z-index: 100) and everything else */
-    background: rgba(15, 17, 21, 0.92); /* dims the page behind */
+    z-index: 9999; 
+    background: rgba(15, 17, 21, 0.92); 
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     align-items: center;
     justify-content: center;
     padding: 6rem 2rem 2rem;
-    overflow-y: auto; /* lets a certificate image taller than the viewport scroll */
+    overflow-y: auto; 
 }
 
 .cert-modal.active {
@@ -586,7 +592,7 @@ body.cert-modal-open {
     max-height: 90vh;
     width: auto;
     height: auto;
-    object-fit: contain; /* scales to fit while preserving aspect ratio, no distortion/cropping */
+    object-fit: contain; 
     border-radius: 1rem;
     box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.5);
 }
@@ -798,6 +804,7 @@ body.cert-modal-open {
 .resume-detail.skills .resume-item span {
     position: absolute;
     top: 15%;
+    left: 50%;
     background: var(--white-color);
     color: var(--bg-color);
     font-size: 1.6rem;
@@ -806,15 +813,17 @@ body.cert-modal-open {
     pointer-events: none;
     font-weight: 700;
     opacity: 0;
-    transform: translateY(-10px) scale(0.9);
+    transform: translate(-50%, -10px) scale(0.9);
     transition: opacity 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    white-space: nowrap;
+    max-width: min(22rem, 90vw);
+    white-space: normal;
+    text-align: center;
 }
 
 .resume-detail.skills .resume-item:hover span {
     opacity: 1;
-    transform: translateY(-15px) scale(1);
+    transform: translate(-50%, -15px) scale(1);
 }
 
 /* About Me Grid */
@@ -861,9 +870,6 @@ body.cert-modal-open {
 
 /* ============================================================
    PORTFOLIO SECTION
-   - Two-column layout: details on left, carousel on right
-   - Carousel with navigation buttons
-   - Hover tooltips on project links
    ============================================================ */
 .portfolio-container {
     display: grid;
@@ -933,6 +939,7 @@ body.cert-modal-open {
     transform: translateX(-50%) scale(.9);
     font-size: 1.6rem;
     white-space: nowrap;
+    max-width: 90vw;
     padding: .5rem 1rem;
     border-radius: .6rem;
     pointer-events: none;
@@ -948,10 +955,7 @@ body.cert-modal-open {
     transform: translateX(-50%) scale(1);
 }
 
-/* Portfolio Carousel
-   - Reusable, aspect-ratio driven image container so every project image
-     (regardless of its native dimensions) scales consistently, stays fully
-     visible, and never gets cropped or stretched at any screen size. */
+/* Portfolio Carousel */
 .portfolio-box .portfolio-carousel {
     --carousel-ratio: 16 / 10;
     width: 100%;
@@ -1030,8 +1034,6 @@ body.cert-modal-open {
 
 /* ============================================================
    CONTACT SECTION
-   - Two-column layout: info on left, form on right
-   - Form with validation, loading states, and status messages
    ============================================================ */
 .contact-container {
     display: grid;
@@ -1160,8 +1162,6 @@ body.cert-modal-open {
 
 /* ============================================================
    RESPONSIVE DESIGN
-   - Mobile-first breakpoints
-   - Tablet and desktop adjustments
    ============================================================ */
 @media (max-width: 1200px) {
     html { font-size: 55%; }
@@ -1230,9 +1230,7 @@ body.cert-modal-open {
         order: 1;
     }
 
-    /* Single-column layout: give the carousel a slightly taller ratio
-       so screenshots have more room without the box becoming a tall
-       column, and keep it flexible instead of a fixed pixel height. */
+
     .portfolio-box .portfolio-carousel {
         --carousel-ratio: 4 / 3;
         max-height: 40rem;
@@ -1249,7 +1247,7 @@ body.cert-modal-open {
         height: 30rem;
     }
 
-    .contact-container .field-box {
+    .contact-box .field-box {
         grid-template-columns: 1fr;
     }
 
