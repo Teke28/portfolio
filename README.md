@@ -58,7 +58,7 @@ The contact form on this website is powered by **Formspree**, allowing visitors 
 
 | Home Page | Projects Section | Contact Form |
 |-----------|------------------|---------------|
-| *(add image)* | *(add image)* | *(add image)* |
+| *![home page screenshot](image.png)* | *![project section screenshot](image-1.png)* | *![contact section screenshot](image-2.png)* |
 
 ## Installation and Setup
 
@@ -96,28 +96,13 @@ This project can be deployed using any static site hosting service, including:
 Computer Science Graduate | Software Developer
 
 - GitHub: [github.com/teke28](https://github.com/teke28)
-- LinkedIn: [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
-- Email: your.email@example.com
+- LinkedIn: [https://www.linkedin.com/in/tekele-tesfeye-36ba5a419](https://www.linkedin.com/in/tekele-tesfeye-36ba5a419)
+- Email: tasfeyetakele@gmail.com
 
 ## License
 
-This project is licensed under the **MIT License** — you are free to use, modify, and distribute this project with proper attribution.
 
-```
-MIT License
+This project is a personal portfolio website created by Tekele Tesfeye.
 
-Copyright (c) 2026 Tekele Tesfeye
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-```
+The source code is available for viewing and learning purposes. 
+Reuse, modification, or redistribution of this project requires permission from the owner.
